@@ -76,7 +76,7 @@ void OnTick() {
 
     if(bNewBarEvent) {
         Print("trade:", trade);
-        if(trade == "sellActive") {
+        if(trade == "buyActive") {
             Print("if(trade == sellActive) {");
             if(candleCounter < 6) {
                 candleCounter++;
@@ -87,7 +87,7 @@ void OnTick() {
                     // double price = Z_data[4];
                     double sl = Z_data[0];
                     double tp = Z_data[1];
-                    trade("ORDER_TYPE_SELL", "0.1", sl, tp);
+                    trade("ORDER_TYPE_buy", "0.1", sl, tp);
                     candleCounter = 0;
                     trade         = "";
                 }

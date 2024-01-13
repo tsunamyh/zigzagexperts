@@ -82,7 +82,7 @@ void OnTick()
         Print("trade:", trade);
         if (trade == "buyActive")
         {
-            Print("if(trade == sellActive) {");
+            Print("if(trade == buyActive) {");
             if (candleCounter < 6)
             {
                 candleCounter++;

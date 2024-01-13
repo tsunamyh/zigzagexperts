@@ -219,8 +219,8 @@ bool checkBuy()
         Z_data[0] < Z_data[2] &&
         // //((Z_candles[1]+1)/ (Z_candles[2]+1)) > 1.5  &&
         (Z_candles[4] + Z_candles[3]) > (Z_candles[2] + Z_candles[1]) &&
-        Z_candles[4] / Z_candles[2] > 1 &&
-        Z_candles[4] / Z_candles[2] < 2 &&
+        (Z_candles[2] / Z_candles[4] > 0.5 ||
+        Z_candles[2] / Z_candles[4] < 1.5) &&
         (Z_data[1] - Z_data[2]) > (Z_data[3] - Z_data[4]) &&
         (Z_data[3] - Z_data[4]) > (Point() * 100));
 }
@@ -236,8 +236,8 @@ bool checkSell()
         Z_data[3] > Z_data[1] &&
         Z_data[0] > Z_data[2] &&
         (Z_candles[4] + Z_candles[3]) > (Z_candles[2] + Z_candles[1]) &&
-        Z_candles[4] / Z_candles[2] > 1 &&
-        Z_candles[4] / Z_candles[2] < 2 &&
+        (Z_candles[2] / Z_candles[4] > 0.5 ||
+        Z_candles[2] / Z_candles[4] < 1.5) &&
         (Z_data[2] - Z_data[1]) > (Z_data[4] - Z_data[3]) &&
         (Z_data[4] - Z_data[3]) > (Point() * 100));
 }

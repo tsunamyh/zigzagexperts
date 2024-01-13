@@ -97,10 +97,32 @@ void OnTick()
                 double high_2 = iHigh(Symbol(), Period(), 2);
                 double low_2 = iLow(Symbol(), Period(), 2);
                 Print("low_1:", low_1);
-                if (low_1 > Z_data[2])
+                double shadow_low_2;
+                double shadow_high_2;
+                double body_2;
+                if (close_2 > open_2)
+                {
+                    shadow_low_2 = open_2 - low_2;
+                    shadow_high_2 = high_2 - close_2;
+                    body_2 = close_2 - open_2;
+                }
+                else
+                {
+                    shadow_low_2 = close_2 - low_2;
+                    shadow_high_2 = high_2 - open_2;
+                    body_2 = open_2 - close_2;
+                }
+
+                if (
+                    low_2 < Z_data[2] &&
+                    low_1 > low_2 &&
+                    shadow_low_2 / body_2 > 2 &&
+                    shadow_high_2 / body_2 < 1 &&
+                    close_1 > open_1 &&
+                    close_1 - open_1 > ((high_1 - close_1) + (open_1 - low_1)))
                 {
                     // double price = Z_data[4];
-                    double sl = Z_data[0];
+                    double sl = Z_data[0] - (Point() * 50);
                     double tp = Z_data[1];
                     trade("ORDER_TYPE_BUY", "0.1", sl, tp);
                     candleCounter = 0;
@@ -130,11 +152,32 @@ void OnTick()
                 double high_2 = iHigh(Symbol(), Period(), 2);
                 double low_2 = iLow(Symbol(), Period(), 2);
                 Print("high_1:", high_1);
-                if (high_1 < Z_data[2])
+                double shadow_low_2;
+                double shadow_high_2;
+                double body_2;
+                if (close_2 > open_2)
+                {
+                    shadow_low_2 = open_2 - low_2;
+                    shadow_high_2 = high_2 - close_2;
+                    body_2 = close_2 - open_2;
+                }
+                else
+                {
+                    shadow_low_2 = close_2 - low_2;
+                    shadow_high_2 = high_2 - open_2;
+                    body_2 = open_2 - close_2;
+                }
+                if (
+                    high_2 > Z_data[2] &&
+                    high_1 > high_2 &&
+                    shadow_high_2 / body_2 > 2 &&
+                    shadow_low_2 / body_2 < 1 &&
+                    open_1 > close_1 &&
+                    open_1 - close_1 > ((high_1 - open_1) + (close_1 - low_1)))
                 {
 
                     // double price = Z_data[4];
-                    double sl = Z_data[0];
+                    double sl = Z_data[0] + (Point() * 50);
                     double tp = Z_data[1];
                     trade("ORDER_TYPE_SELL", "0.1", sl, tp);
                     candleCounter = 0;
@@ -253,6 +296,12 @@ bool checkSell()
          ((Z_data[3] - Z_data[2]) / (Z_data[5] - Z_data[4]) < 2)));
 }
 
+bool checkBuyActive()
+{
+    return (false
+            // low_2 > Z_data[2]
+    );
+}
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
